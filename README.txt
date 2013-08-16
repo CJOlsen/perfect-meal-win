@@ -1,11 +1,22 @@
 Perfect Meal
 Author: Christopher Olsen
 Copyright 2013
-License: None
+License: GNU GPLv3
+See included LICENSE file for full license terms.
 
-This port (windows) is under temporary copyright.  The GNU/Linux branch is
-under the GPLv3.  This version also contains fewer files, only what it needs to
-run - the GNU/Linunx branch is where development occurs.
+
+
+IMPORTANT NOTE (Windows users only):
+
+In order to preserve the GNU GPLv3 license while respecting all other copyrights
+it isn't at this time feasible to include all needed Microsoft files for this
+program to run on Windows machines.  You may need to visit
+
+http://www.microsoft.com/en-us/download/details.aspx?id=29
+
+and download/install the Microsoft Visual C++ 2008 Redistributable Package.  When
+running on Windows this program uses some of the underlying Microsoft files that are
+under strict and restrictive licenses.  I apologize for the inconvenience.
 
 
 About:
