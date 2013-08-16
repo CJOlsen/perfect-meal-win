@@ -1,0 +1,33 @@
+nutrient[space]RDA/AI[space]upper limit[space]units[endline]
+from http://www.iom.edu/Global/News%20Announcements/~/media/Files/Activity%20Files/Nutrition/DRIs/DRI_Summary_Listing.pdf and http://iom.edu/Activities/Nutrition/SummaryDRIs/~/media/Files/Activity%20Files/Nutrition/DRIs/RDA%20and%20AIs_Vitamin%20and%20Elements.pdf
+
+Vitamin_A 900 3000 ug
+Vitamin_C 90 2000 mg
+Vitamin_D 15 50 ug
+Vitamin_E 15 1000 mg
+Vitamin_K 120 ND ug
+Thiamin 1.2 ND mg
+Riboflavin 1.3 ND mg
+Niacin 16 35 mg
+Vitamin_B6 1.3 100 mg
+Folate 400 1000 ug
+Vitamin_B12 2.4 ND ug
+Pantothenic_Acid 5 ND mg
+Biotin 30 ND mg
+Choline 550 3500 mg
+Calcium 1000 2500 mg
+Chromium 35 ND ug
+Copper 900 10000 ug
+Fluoride 4 10 mg
+Iodine 150 1100 ug
+Iron 8 45 mg
+Magnesium 420 ND mg
+Manganese 2.3 11 mg
+Molybdenum 45 2000 ug
+Phosphorus 700 4000 mg
+Selenium 55 400 ug
+Zinc 11 40 mg
+Potassium 4.7 ND g
+Sodium 1.5 2.3 g
+Chloride 2.3 3.6 g
+
