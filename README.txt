@@ -4,7 +4,8 @@ Copyright 2013
 License: None
 
 This port (windows) is under temporary copyright.  The GNU/Linux branch is
-under the GPLv3.
+under the GPLv3.  This version also contains less files, only what it needs to
+run - the GNU/Linunx branch is where development occurs.
 
 
 About:
