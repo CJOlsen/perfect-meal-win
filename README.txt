@@ -4,7 +4,7 @@ Copyright 2013
 License: None
 
 This port (windows) is under temporary copyright.  The GNU/Linux branch is
-under the GPLv3.  This version also contains less files, only what it needs to
+under the GPLv3.  This version also contains fewer files, only what it needs to
 run - the GNU/Linunx branch is where development occurs.
 
 
@@ -19,9 +19,11 @@ also view the USDA version of the database here: http://ndb.nal.usda.gov/
 
 How to run:
 
-Copy the entire folder from https://github.com/cjolsen/perfect-meal-win/dist and
-run "perfectmeal_gui.exe".  If it doesn't work then please try to let me know.
-There are known problems with certain .dll files at this time.
+One the lower right side of the https://github.com/cjolsen/perfect-meal-win/
+page there is s 'Download Zip' button, it will download the whole thing.  After
+download and unzip, there is a file called perfectmeal_gui.exe in the dist
+folder, this should "just work".  If it doesn't it should generate an error log
+of why it didn't and if you could send that my way it would be appreciated.
 
 
 Windows Versions Specific:
