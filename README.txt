@@ -41,6 +41,15 @@ log of why it didn't and if you could send that my way it would be appreciated,
 but it isn't expected that you do so.
 
 
+To build a new .exe:
+
+navigate to the folder using the command prompt, then use the command 
+
+	"python setup.py py2exe"
+
+
+
+
 GNU/Linux users:
 
 Visit https://github.com/CJOlsen/perfect-meal for the current GNU/Linux version,

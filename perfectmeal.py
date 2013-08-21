@@ -695,9 +695,9 @@ def get_objects_by_group_and_name(food_group_filter, name_filter):
         """
     ## TODO: fix this to work with get_partial_db()
 
-    print ''
-    print 'food_group_filter and name_filter', food_group_filter, name_filter
-    print ''
+    #print ''
+    #print 'food_group_filter and name_filter', food_group_filter, name_filter
+    #print ''
     assert type(food_group_filter) is Food_Group_Filter
     # and type(name_filter) is Name_Filter
     objects = []
@@ -761,7 +761,7 @@ def get_food_objects(food_group_filter=Food_Group_Filter(),
         objects from the JSON database and maps them into Food objects,
         returns a list of Food objects.
         """
-    print 'get_food_objects, type(name_filter', type(name_filter)
+    #print 'get_food_objects, type(name_filter', type(name_filter)
     obj_list = get_objects_by_group_and_name(food_group_filter, name_filter)
     return [Food(nutrient_group_filter, obj) for obj in obj_list]
 
@@ -790,7 +790,7 @@ def get_food_with_name(food_name, nutrient_groups=None):
 def get_fields(nutritional_groupings=['elements', 'vitamins', 'energy',
                                       'sugars', 'amino_acids', 'other',
                                       'composition']):
-    print 'get_fields groupings:', nutritional_groupings
+    #print 'get_fields groupings:', nutritional_groupings
     food = Food(nutritional_groupings)
     fields = dict()
     for group in food.nutritional_groupings:
@@ -872,7 +872,7 @@ def complete_meal(current_meal, min_meal, max_meal, algorithm, food_groups):
         new_food = Food.unflatten(food[1], food[0])
         new_food.serving_size = serving_sizes[new_food.get_name()]
         foods.append(new_food)
-    print 'number foods', len(foods)
+    #print 'number foods', len(foods)
     new_meal = Meal(foods[0].nutritional_groupings, foods)
     return new_meal
 
