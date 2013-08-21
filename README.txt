@@ -8,46 +8,41 @@ See included LICENSE file for full license terms.
 
 IMPORTANT NOTE (Windows users only):
 
-In order to preserve the GNU GPLv3 license while respecting all other copyrights
-it isn't at this time feasible to include all needed Microsoft files for this
-program to run on Windows machines.  You may need to visit
+You may need to visit
 
 http://www.microsoft.com/en-us/download/details.aspx?id=29
 
-and download/install the Microsoft Visual C++ 2008 Redistributable Package.  When
-running on Windows this program uses some of the underlying Microsoft files that are
-under strict and restrictive licenses.  I apologize for the inconvenience.
+and download/install the Microsoft Visual C++ 2008 Redistributable Package.  
+When running on Windows this program uses some of the underlying Microsoft 
+files available in that package.  (But there's a very good chance they're 
+already installed in your system.)
 
 
 About:
 
-This is a technology preview of Perfect Meal, a program that allows you to
+This is a pre-release of Perfect Meal, a program that allows you to
 build meals and shows you the nutritional profiles of them.  Special thanks to
 Ashley Williams for packaging the USDA database in a JSON format
 (http://ashleyw.co.uk/project/food-nutrient-database) and to the USDA.  You can
 also view the USDA version of the database here: http://ndb.nal.usda.gov/
+
+The search algorithms are currently in need of tuning.  (Some of them have
+taken a particular liking to entire turkeys..... There have been slightly better
+algorithms that didn't survive some of the structural changes of the program.)
 
 
 How to run:
 
 One the lower right side of the https://github.com/cjolsen/perfect-meal-win/
 page there is s 'Download Zip' button, it will download the whole thing.  After
-download and unzip, there is a file called perfectmeal_gui.exe in the dist
-folder, this should "just work".  If it doesn't it should generate an error log
-of why it didn't and if you could send that my way it would be appreciated.
+download and unzip, there is a file called perfectmeal_gui.exe in the "dist"
+folder, this should open the program.  If it doesn't it should generate an error 
+log of why it didn't and if you could send that my way it would be appreciated,
+but it isn't expected that you do so.
 
 
-Windows Versions Specific:
+GNU/Linux users:
 
-There are a few .dll files necessary for the program to run that are proprietary
-and I'm in the process of figuring out how to either distribute the program
-with them or include a link to get them.  This issue prevents distribution under
-a free and open license until I can be sure all copyrights are being respected.
-Luckily there are no such issues affecting the GNU/Linux version of this program
-so it remains under the GPLv3, https://github.com/cjolsen/perfect-meal
-
-Problems:
-
-several.
-
+Visit https://github.com/CJOlsen/perfect-meal for the current GNU/Linux version,
+it's also the main development repository which tends to be ahead of this one.
 
