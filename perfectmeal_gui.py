@@ -123,21 +123,18 @@ class InteractivePanel(scrolled.ScrolledPanel):
         self.panel.SetSizerAndFit(self.sizer)
 
     def show_warning(self):
-        text = "Thank you for being here! \n\nWhat is contained in this program\
-is absolutely NOT sound \
+        text = "Thank you for being here! \n\nWhat is contained in this \
+program is absolutely NOT sound \
 nutritional advice.  This program is currently in a Proof Of Concept phase \
 and all nutritional daily requirement numbers are either ballpark or \
-completely wrong.\n\n\
-This project is currently hosted at:\nhttps://github.com/CJOlsen/perfect-meal-win\n\
-(the GNU/Linux version is at .../CJOlsen/perfect-meal) \n\nI need help managing and coding this \
-project!\n\nNutritional content of over 6,500 foods is from the USDA and \
-packaged into the JSON format by Ashley Williams (special thanks!) See\n\
-http://ashleyw.co.uk/project/food-nutrient-database\nfor more info.\n\nIf you \
-are a qualified nutritionist (or programmer) and would like to \
-contribute to a Free and Open Source project please visit\n\
-en.wikipedia.org/wiki/GNU_Generfal_Public_License and/or\n\
-http://www.gnu.org/philosophy/free-sw.html to see how contributions to this \
-project will be handled."
+completely wrong.  Currently the numbers are (roughly) one third of the \
+daily values I've been able to find.\n\n\
+This project is currently hosted at:\n\
+https://github.com/CJOlsen/perfect-meal-win\n\
+and is licensed under the GPLv3 \n\nNutritional content of over 6,500 foods\
+is from the USDA and packaged into the JSON format by Ashley Williams \
+(special thanks!) See\n\
+http://ashleyw.co.uk/project/food-nutrient-database\nfor more info."
         wx.MessageBox(text, 'Welcome to Perfect Meal', 
             wx.OK | wx.ICON_INFORMATION)
 
@@ -198,9 +195,15 @@ project will be handled."
             for j in range(columns):
                 try:
                     # this throws an error on windows machines (not Debian)
+                    val = self.nutr_grid_data.get_value(i,j)
+                    if type(val) is int or type(val) is float:
+                        val = "%.2f" % self.nutr_grid_data.get_value(i,j)
+                    else:
+                        if j != 0 and i != 0:
+                            val = "None"
                     self.nutritional_grid.SetCellValue(i,
                                                        j,
-                                                       str(self.nutr_grid_data.get_value(i,j)))
+                                                       val)
                 except:
                     pass
         for i in range(rows):
@@ -230,9 +233,10 @@ project will be handled."
         # how to break text=... up into 79 char lines?
         text = "The current weight that will be used to calculate the Amino \
 Acid profile is %s.  Either enter a new weight and press OK or press Cancel \
-to continue with the current value.\n((THIS DOESN'T CHANGE ANYTHING RIGHT \
-NOW!))" % (self.body_weight)
-        dialog = wx.TextEntryDialog(None, text, "Amino Acid Profile Helper", " ")
+to continue with the current value.\n((this function isn't hooked up at the \
+moment))" % (self.body_weight)
+        dialog = wx.TextEntryDialog(None, text, "Amino Acid Profile Helper",
+                                    " ")
         if dialog.ShowModal() == wx.ID_OK:
             self.body_weight = int(dialog.GetValue())
 
@@ -294,7 +298,8 @@ NOW!))" % (self.body_weight)
         
 
         ## search boxes
-        self.search_label = wx.StaticText(parent=self.panel, label="Search Database")
+        self.search_label = wx.StaticText(parent=self.panel,
+                                          label="Search Database")
         self.search_textbox = wx.TextCtrl(parent=self.panel,
                                           id=-1,
                                           size=(275, -1))
@@ -457,11 +462,7 @@ NOW!))" % (self.body_weight)
 
     def OnCompleteMeal(self, event):
         ## display popup
-        text = 'This button attempts to round out your currently selected meal. \
-It may take a while, it may fail.  Searching a database of 6,500+ foods for \
-ones that will complement the current nutritional profile is time intensive.  \
-If when this finishes, everything on the left is either green or grey (NOT red) \
-then the search was (probably) successful.  Continue?'
+        text = 'This may take some time.  Continue?'
         dialog = wx.MessageDialog(None,
                                   text,
                                   'Complete Meal',
@@ -528,8 +529,12 @@ class MainWindow(wx.Frame):
         # setting up the file menu
         filemenu = wx.Menu()
         #wx.ID_ABOUT and wx.ID_EXIT are standard IDs provided by wxwidgets
-        menuAbout = filemenu.Append(wx.ID_ABOUT, "&About"," Information about this program")
-        menuExit = filemenu.Append(wx.ID_EXIT, "&Exit", " Terminate the program.")
+        menuAbout = filemenu.Append(wx.ID_ABOUT, "&About",
+                                    " Information about this program")
+        menuHelp = filemenu.Append(wx.ID_HELP, "&Help",
+                                   "Help on running the program")
+        menuExit = filemenu.Append(wx.ID_EXIT, "&Exit",
+                                   " Terminate the program.")
         # Creating the Menubar.
         menuBar = wx.MenuBar()
         menuBar.Append(filemenu, "&File")
@@ -538,6 +543,7 @@ class MainWindow(wx.Frame):
         # create event bindings
         self.Bind(wx.EVT_MENU, self.OnAbout, menuAbout)
         self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
+        self.Bind(wx.EVT_MENU, self.OnHelp, menuHelp)
         # display the notebook
         self.sizer = wx.BoxSizer()
         self.sizer.Add(InteractivePanel(self), 1, wx.EXPAND, border=15)
@@ -561,10 +567,38 @@ Hopefully in the future, with help, this program will offer sound advice."
         dialog.ShowModal()
         dialog.Destroy()
 
+    def OnHelp(self, e):
+        """ Help menu """
+        text = """Start by typing a food to search for in the search box on \
+the upper right hand corner of the screen.  Then click the "Go" button.  A \
+list of matching foods will be displayed that you can select and add to the \
+current meal.  If you would like to narrow your search the listbox on the \
+lower right corner will allow you to choose which food groups you want to \
+consider.  You need to press the update button for these changes to take \
+effect.  You may also change the nuntrients that are displayed on the left \
+side of the screen by selecting nutritional groupings from the listbox in the \
+middle of the bottom of the screen.\n\nResetting the meal is accomplished by \
+selecting all of the foods and clicking "Remove Selected".  This will be \
+improved in the future.\n\nThe "Complete Meal" button will run the selected \
+algorithm and attempt to round out the meal with some number of other foods.  \
+If it is taking too long you can deselect some food groups from the lower \
+right hand listbox, or you can start with more foods in your current meal.  \
+The different algorithms will generally each choose a unique selection of \
+foods, even with the same starting point.  "Goldilocks pickonce" seems to be \
+the strongest of the current algorithms, but it also takes longer than some \
+of the others.
+"""
+        dialog = wx.MessageDialog(self,
+                                  text,
+                                  "Help",
+                                  wx.OK)
+        dialog.ShowModal()
+        dialog.Destroy()
+    
     def OnExit(self, e):
         self.Close(True)
 
 app = wx.App()
-MainWindow(None, title="Perfect Meal")
+MainWindow(None, title="Perfect Meal - alpha")
 app.MainLoop()
 

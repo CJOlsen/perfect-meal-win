@@ -32,8 +32,10 @@ def ackp(possibilities, minimums, maximums=None, currents=None,
               constrained element can reach]
     currents: a list of two-tuples: [name, dictionary of constrained element 
               names and their values].  The current members of the knapsack.
-    algorithm: if the user has a preference of algorithm it can be entered here
-               currently defaults to "greedy_balance"
+    algorithm: if the user has a preference of algorithm it can be entered 
+               here
+   
+    currently defaults to "greedy_balance"
     """
     
     # quality checks (maybe add error messages)
@@ -265,9 +267,9 @@ def goldilocks_indx(minimums, total, currents, maximums):
         max_val = maximums[1][key]
         if total_val is not None and max_val is not None and\
                 min_val is not None:
-            if total_val > max_val:
+            if total_val >= max_val:
                 # remember, lower scores are better
-                return 10000000 #this number needs to be "big enough"
+                return 100000000 #this number needs to be "big enough"
             else:
                 score += ((max_val - min_val) / (max_val - total_val))
     return score

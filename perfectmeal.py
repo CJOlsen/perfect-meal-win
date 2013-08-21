@@ -438,93 +438,107 @@ def info(name):
 #############################################################################
 # *see nutrient_subgroups.py
 
+# this was moved to per meal instead of per day at the last minute, needs
+# to be redone properly (which includes adding an option to switch between
+# per meal and per day - the time of designing that piece is why I just did
+# a temporary fix here)
+
 def make_daily_min(groupings):
     # not complete
     assert type(groupings) == list
     daily_min = Meal(groupings)
     if 'elements' in groupings:
-        daily_min.elements['Sodium, Na'] = 1500.
-        daily_min.elements['Phosphorus, P'] = 700.
-        daily_min.elements['Manganese, Mn'] = 2.3
-        daily_min.elements['Iron, Fe'] = 8. 
-        daily_min.elements['Potassium, K'] = 4700.
+        daily_min.elements['Sodium, Na'] =  (1500. / 3.)
+        daily_min.elements['Phosphorus, P'] =  (700. / 3.)
+        daily_min.elements['Manganese, Mn'] =  (2.3 / 3.)
+        daily_min.elements['Iron, Fe'] =  (8. / 3.)
+        daily_min.elements['Potassium, K'] =  (4700. / 3.)
         daily_min.elements['Fluoride, F'] = None #4. having troubles
-        daily_min.elements['Selenium, Se'] = None #.055 having troubles, units off?
-        daily_min.elements['Magnesium, Mg'] = 420.
-        daily_min.elements['Zinc, Zn'] = 11.
-        daily_min.elements['Copper, Cu'] = .9
-        daily_min.elements['Calcium, Ca'] = 1000.
+        daily_min.elements['Selenium, Se'] = None #.055 having troubles...
+        daily_min.elements['Magnesium, Mg'] =  (420. / 3.)
+        daily_min.elements['Zinc, Zn'] =  (11. / 3.)
+        daily_min.elements['Copper, Cu'] =  (.9 / 3.)
+        daily_min.elements['Calcium, Ca'] =  (1000. / 3.)
     if 'vitamins' in groupings:
-        daily_min.vitamins['Niacin'] = 16.
-        daily_min.vitamins['Thiamin'] = 1.2
+        daily_min.vitamins['Niacin'] =  (16. / 3.)
+        daily_min.vitamins['Thiamin'] =  (1.2 / 3.)
         daily_min.vitamins['Vitamin B-6'] = None ## instead of zero?
-        daily_min.vitamins['Pantothenic acid'] = 5.
-        daily_min.vitamins['Vitamin C, total ascorbic acid'] = 90.
-        daily_min.vitamins['Vitamin A, IU'] =.9
-        daily_min.vitamins['Vitamin E (alpha-tocopherol)'] = 15.
-        daily_min.vitamins['Vitamin D'] = .015
-        daily_min.vitamins['Folate, total'] = .4 
-        daily_min.vitamins['Vitamin B-12'] = .0024
-        daily_min.vitamins['Vitamin K (phylloquinone)'] = .12
+        daily_min.vitamins['Pantothenic acid'] =  (5. / 3.)
+        daily_min.vitamins['Vitamin C, total ascorbic acid'] = (90. / 3.)
+        daily_min.vitamins['Vitamin A, IU'] =  (.9 / 3.)
+        daily_min.vitamins['Vitamin E (alpha-tocopherol)'] = (15. / 3.)
+        daily_min.vitamins['Vitamin D'] =  (.015 / 3.)
+        daily_min.vitamins['Folate, total'] =  (.4 / 3.)
+        daily_min.vitamins['Vitamin B-12'] =  (.0024 / 3.)
+        daily_min.vitamins['Vitamin K (phylloquinone)'] = (.12 / 3.)
     if 'amino_acids' in groupings:
         # assumed to be per 100kg, source for Proof Of Concept from
         # http://en.wikipedia.org/wiki/Essential_amino_acid#Recommended_daily_amounts
         # Methionine+Cysteine and Phenylalanine+Tyrosine were broken up,
         # although they are substitutes for eachother.  These are in a sense
         # dummy values!!!
-        daily_min.amino_acids['Lysine'] = 3000
-        daily_min.amino_acids['Phenylalanine'] = 1250
-        daily_min.amino_acids['Leucine'] = 3900
-        daily_min.amino_acids['Methionine'] = 750
-        daily_min.amino_acids['Histidine'] = 1000
-        daily_min.amino_acids['Valine'] = 2600
-        daily_min.amino_acids['Tryptophan'] = 400
-        daily_min.amino_acids['Isoleucine'] = 2000
-        daily_min.amino_acids['Threonine'] = 1500
-        daily_min.amino_acids['Cystine'] = 750
-        daily_min.amino_acids['Tyrosine'] = 1250
-        daily_min.amino_acids['Hydroxyproline'] = 5 
+        daily_min.amino_acids['Lysine'] =  (3000 / 3.)
+        daily_min.amino_acids['Phenylalanine'] =  (1250 / 3.)
+        daily_min.amino_acids['Leucine'] =  (3900 / 3.)
+        daily_min.amino_acids['Methionine'] =  (750 / 3.)
+        daily_min.amino_acids['Histidine'] =  (1000 / 3.)
+        daily_min.amino_acids['Valine'] =  (2600 / 3.)
+        daily_min.amino_acids['Tryptophan'] =  (400 / 3.)
+        daily_min.amino_acids['Isoleucine'] =  (2000 / 3.)
+        daily_min.amino_acids['Threonine'] =  (1500 / 3.)
+        daily_min.amino_acids['Cystine'] =  (750 / 3.)
+        daily_min.amino_acids['Tyrosine'] =  (1250 / 3.)
+        daily_min.amino_acids['Hydroxyproline'] =  (5 / 3.)
     return daily_min
 
 def make_daily_max(groupings):
     assert type(groupings) == list
     daily_max = Meal(groupings)
     if 'elements' in groupings:
-        daily_max.elements['Sodium, Na'] = 2300.
-        daily_max.elements['Phosphorus, P'] = 4000.
-        daily_max.elements['Manganese, Mn'] = 211.
-        daily_max.elements['Iron, Fe'] = 45.
-        daily_max.elements['Potassium, K'] = 999999. ## 999999. means no upper limit
+        daily_max.elements['Sodium, Na'] =  (2300. / 3.)
+        daily_max.elements['Phosphorus, P'] =  (4000. / 3.)
+        daily_max.elements['Manganese, Mn'] =  (211. / 3.)
+        daily_max.elements['Iron, Fe'] =  (45. / 3.)
+        daily_max.elements['Potassium, K'] = 999999. ## 999999.=no upper limit
         daily_max.elements['Fluoride, F'] = None #10.  having troubles
         daily_max.elements['Selenium, Se'] = None #.4 having troubles, units off?
         daily_max.elements['Magnesium, Mg'] = 999999.
-        daily_max.elements['Zinc, Zn'] = 40.
-        daily_max.elements['Copper, Cu'] = 10.
-        daily_max.elements['Calcium, Ca'] = 2500.
+        daily_max.elements['Zinc, Zn'] =  (40. / 3.)
+        daily_max.elements['Copper, Cu'] =  (10. / 3.)
+        daily_max.elements['Calcium, Ca'] =  (2500. / 3.)
     if 'vitamins' in groupings:
-        daily_max.vitamins['Niacin'] = 35.
+        daily_max.vitamins['Niacin'] =  (35. / 3.)
         daily_max.vitamins['Thiamin'] = 999999. 
-        daily_max.vitamins['Vitamin B-6'] =  100.
+        daily_max.vitamins['Vitamin B-6'] =   (100. / 3.)
         daily_max.vitamins['Pantothenic acid'] = 999999.
-        daily_max.vitamins['Vitamin C, total ascorbic acid'] = 2000. 
-        daily_max.vitamins['Vitamin A, IU'] = 3.
-        daily_max.vitamins['Vitamin E (alpha-tocopherol)'] = 1000.
-        daily_max.vitamins['Vitamin D'] = .05
-        daily_max.vitamins['Folate, total'] = 1. 
+        daily_max.vitamins['Vitamin C, total ascorbic acid'] = (2000. / 3.)
+        daily_max.vitamins['Vitamin A, IU'] =  (3. / 3.)
+        daily_max.vitamins['Vitamin E (alpha-tocopherol)'] = (1000. / 3.)
+        daily_max.vitamins['Vitamin D'] =  (.05 / 3.)
+        daily_max.vitamins['Folate, total'] =  (1. / 3.)
         daily_max.vitamins['Vitamin B-12'] = 999999.
         daily_max.vitamins['Vitamin K (phylloquinone)'] = 999999. 
     return daily_max
 
 
-amino_acid_per_mass = {'Lysine': 3000, 'Alanine': None,
-                                'Glycine': None, 'Proline': None, 'Serine': None,
-                                'Arginine': None, 'Glutamic acid': None,
-                                'Phenylalanine': 1250, 'Leucine': 3900,
-                                'Methionine': 750, 'Histidine': 1000,
-                                'Valine': 2600, 'Tryptophan': 400,
-                                'Isoleucine': 2000, 'Threonine': 1500,
-                                'Aspartic acid': None, 'Cystine': 750,
-                                'Tyrosine': 1250}
+amino_acid_per_mass = {'Lysine':  (3000 / 3.),
+                       'Alanine': None,
+                       'Glycine': None,
+                       'Proline': None,
+                       'Serine': None,
+                       'Arginine': None,
+                       'Glutamic acid': None,
+                       'Phenylalanine':  (1250 / 3.),
+                       'Leucine':  (3900 / 3.),
+                       'Methionine':  (750 / 3.),
+                       'Histidine':  (1000 / 3.),
+                       'Valine':  (2600 / 3.),
+                       'Tryptophan':  (400 / 3.),
+                       'Isoleucine':  (2000 / 3.),
+                       'Threonine':  (1500 / 3.),
+                       'Aspartic acid': None,
+                       'Cystine':  (750 / 3.),
+                       'Tyrosine':  (1250 / 3.)}
 
 def add_amino_acids_to_min(daily_min, body_weight):
     # body_weight is assumed to be in kilograms
