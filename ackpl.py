@@ -15,7 +15,8 @@ def algorithm_names():
     return ["greedy_balance","greedy_balance_pickonce",
             "greedy_finishline","greedy_finishline_pickonce",
             "greedy_alternating","greedy_alternating_pickonce",
-            "greedy_runwalk","greedy_runwalk_pickonce",]
+            "greedy_runwalk","greedy_runwalk_pickonce",
+            "greedy_goldilocks","greedy_goldilocks_pickonce",]
 
 
 def ackp(possibilities, minimums, maximums=None, currents=None, 
@@ -78,6 +79,12 @@ def ackp(possibilities, minimums, maximums=None, currents=None,
         elif "greedy_runwalk_pickonce"  == algorithm:
             return greedy_alg(possibilities, minimums, maximums, currents, 
                               runwalk_indx, unique=True)
+        elif "greedy_goldilocks"  == algorithm:
+            return greedy_alg(possibilities, minimums, maximums, currents, 
+                              goldilocks_indx)
+        elif "greedy_goldilocks_pickonce"  == algorithm:
+            return greedy_alg(possibilities, minimums, maximums, currents, 
+                              goldilocks_indx, unique=True)
         else:
             return NotImplemented
 
@@ -168,12 +175,15 @@ def greedy_alg(possibilities, minimums, maximums, currents, indexer,
     def _next_item_helper(possibilities):
         current_next = possibilities[0]
         current_score = indexer(minimums,
-                                ['total', dict_add(total[1], current_next[1])],
-                                currents)
+                                ['total', dict_add(total[1], 
+                                                   current_next[1])],
+                                currents,
+                                maximums)
         for poss in possibilities[1:]:
             poss_score = indexer(minimums,
                                  ['total', dict_add(total[1], poss[1])],
-                                 currents)
+                                 currents,
+                                 maximums)
             if poss_score < current_score:
                 current_next = poss
                 current_score = poss_score
@@ -243,6 +253,25 @@ def balance_indx(minimums, total, currents, maximums=None):
             b_factor += abs(average - (total[1][key] / minimums[1][key]))
     return b_factor
 
+# includes both desire to meet minimum and aversion to exceeding maximum
+def goldilocks_indx(minimums, total, currents, maximums):
+    """ goldilocks_indx by adding points both for being short of the minimum,
+        and then for getting too close to the maximum
+        """
+    assert maximums is not None
+    score = 0
+    for key in minimums[1]:
+        total_val, min_val = total[1][key], minimums[1][key]
+        max_val = maximums[1][key]
+        if total_val is not None and max_val is not None and\
+                min_val is not None:
+            if total_val > max_val:
+                # remember, lower scores are better
+                return 10000000 #this number needs to be "big enough"
+            else:
+                score += ((max_val - min_val) / (max_val - total_val))
+    return score
+
 # Complex Indexers
 def alternating_indx(minimums, total, currents, maximums=None):
     if len(currents) % 2 == 0:
@@ -262,8 +291,7 @@ def runwalk_indx(minimums, total, currents, maximums=None):
 
 
 
-
-## sanity tests
+## basic sanity tests
 def test_greedy():
     minimums = ('minimums', {'a':10, 'b':100, 'c':12,  'd':17, 'e':5})
     maximums = ('maximums', {'a':57, 'b':145, 'c':99,  'd':82, 'e':123})
@@ -403,3 +431,37 @@ def test_greedy_runwalk_pickonce():
                      ]
     return ackp(possibilities, minimums, maximums, 
                 algorithm="greedy_runwalk_pickonce")
+
+def test_goldilocks():
+    minimums = ('minimums', {'a':10, 'b':100, 'c':12,  'd':17, 'e':5})
+    maximums = ('maximums', {'a':87, 'b':145, 'c':99,  'd':82, 'e':123})
+    possibilities = [('one', {'a':1, 'b':5, 'c':2,  'd':0, 'e':4}),
+                     ('two', {'a':2, 'b':4, 'c':3,  'd':2, 'e':2}),
+                     ('three', {'a':3, 'b':3, 'c':1,  'd':2, 'e':3}),
+                     ('four', {'a':4, 'b':2, 'c':5,  'd':1, 'e':1}),
+                     ('five', {'a':5, 'b':1, 'c':14,  'd':6, 'e':5}),
+                     ('six', {'a':11, 'b':15, 'c':2,  'd':10, 'e':4}),
+                     ('seven', {'a':12, 'b':14, 'c':3,  'd':2, 'e':2}),
+                     ('eight', {'a':13, 'b':13, 'c':1,  'd':12, 'e':3}),
+                     ('nine', {'a':14, 'b':22, 'c':15,  'd':1, 'e':1}),
+                     ('ten', {'a':15, 'b':61, 'c':4,  'd':6, 'e':5}),
+                     ]
+    return ackp(possibilities, minimums, maximums, 
+                algorithm="greedy_goldilocks")
+
+def test_goldilocks_pickonce():
+    minimums = ('minimums', {'a':10, 'b':100, 'c':12,  'd':17, 'e':5})
+    maximums = ('maximums', {'a':87, 'b':145, 'c':99,  'd':82, 'e':123})
+    possibilities = [('one', {'a':1, 'b':5, 'c':2,  'd':0, 'e':4}),
+                     ('two', {'a':2, 'b':4, 'c':3,  'd':2, 'e':2}),
+                     ('three', {'a':3, 'b':3, 'c':1,  'd':2, 'e':3}),
+                     ('four', {'a':4, 'b':2, 'c':5,  'd':1, 'e':1}),
+                     ('five', {'a':5, 'b':1, 'c':14,  'd':6, 'e':5}),
+                     ('six', {'a':11, 'b':15, 'c':2,  'd':10, 'e':4}),
+                     ('seven', {'a':12, 'b':14, 'c':3,  'd':2, 'e':2}),
+                     ('eight', {'a':13, 'b':13, 'c':1,  'd':12, 'e':3}),
+                     ('nine', {'a':14, 'b':22, 'c':15,  'd':1, 'e':1}),
+                     ('ten', {'a':15, 'b':61, 'c':4,  'd':6, 'e':5}),
+                     ]
+    return ackp(possibilities, minimums, maximums, 
+                algorithm="greedy_goldilocks_pickonce")
